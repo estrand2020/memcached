@@ -32,3 +32,6 @@ default['memcached']['ulimit'] = 1024
 
 default['memcached']['logfilepath'] = '/var/log/'
 default['memcached']['logfilename'] = 'memcached.log'
+
+default['memcached']['socket'] = nil
+default['memcached']['permissions'] = '0700'

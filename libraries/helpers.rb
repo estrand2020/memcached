@@ -68,13 +68,22 @@ def remove_default_memcached_configs
 end
 
 def cli_options
-  options = "-m #{new_resource.memory} \
+  if !new_resource.socket 
+    options = "-m #{new_resource.memory} \
 -U #{new_resource.udp_port} \
 -p #{new_resource.port} \
 -u #{new_resource.user} \
 -l #{new_resource.listen} \
 -c #{new_resource.maxconn} \
 -I #{new_resource.max_object_size}"
+  else
+    options = "-m #{new_resource.memory} \
+-s #{new_resource.socket} \
+-a #{new_resource.permissions} \
+-u #{new_resource.user} \
+-c #{new_resource.maxconn} \
+-I #{new_resource.max_object_size}"
+  end
 
   if new_resource.experimental_options.any?
     options << " -o #{new_resource.experimental_options.join(', ')}"
